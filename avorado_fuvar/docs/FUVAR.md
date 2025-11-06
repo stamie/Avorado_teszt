@@ -11,7 +11,8 @@
 3. Mivel a 2-es pontban a Fuvarozókkal kezdtem, ezért szükség van hozzákapcsolódó Járművek táblára. A leírásban egy Fuvarozóhoz sok jármű rendelhető egyszerre.
 4. Munka táblát is létre kell hozni, s 1 Munkát 1 fuvarozóhoz lehet csak rendelni (másik irányba több lehetsége) ezért csak 1 mezőt teszek be a táblába, ami jelzi, hogy melyik fuvarozóhoz van rendelve a munka.
 
-### Kód terv:
+#### Kód terv:
 
+0. Adatbázis létrehozása kulcsokkal együtt, s dump futtatása
 1. Legenerálom az adattáblák alapján az alap kódokat.
 2. Feladat kritériumai alapján alakítom ki a funkciókat

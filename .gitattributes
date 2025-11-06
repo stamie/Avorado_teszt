@@ -1,11 +1,11 @@
 * text=auto eol=lf
 
-*.blade.php diff=html
-*.css diff=css
-*.html diff=html
-*.md diff=markdown
-*.php diff=php
+/avorado_fuvar/*.blade.php diff=html
+/avorado_fuvar/*.css diff=css
+/avorado_fuvar/*.html diff=html
+/avorado_fuvar/*.md diff=markdown
+/avorado_fuvar/*.php diff=php
 
 /.github export-ignore
-CHANGELOG.md export-ignore
-.styleci.yml export-ignore
+/avorado_fuvar/CHANGELOG.md export-ignore
+/avorado_fuvar/.styleci.yml export-ignore
