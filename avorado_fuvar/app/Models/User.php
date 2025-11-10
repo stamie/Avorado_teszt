@@ -1,7 +1,13 @@
 <?php
+// app/Models/User.php (Részlet)
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable; // A trait EBBEN az osztályban van!
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,11 +19,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $remember_token
  * @property string $created_at
  * @property string $updated_at
- * @property boolean $is_admin
+ * @property boolean $role
  * @property Vehicle[] $vehicles
  * @property Work[] $works
  */
-class User extends Model
+class User extends Authenticatable
 {
     /**
      * @var array
@@ -26,7 +32,7 @@ class User extends Model
         'name', 
         'email',  
         'password', 
-        'is_admin',
+        'role',
     ];
     protected $hidden = [
         'password',
@@ -47,5 +53,9 @@ class User extends Model
     public function works()
     {
         return $this->hasMany('App\Models\Work', 'carrier');
+    }
+    public function hasRole(string $role): bool
+    {
+        return $this->role === $role;
     }
 }
