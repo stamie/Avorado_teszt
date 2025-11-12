@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Vehicle;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +21,7 @@ class WorkSeeder extends Seeder
                 'recipient_name' => 'Hajós József',
                 'recipient_phone' => '+36705454111',
                 'status' => 1,
-                'carrier' => Vehicle::where(['licence_plate' => 'ahd-383'])->first()->id,
+                'carrier' => User::where(['name' => 'lala3'])->first()->id,
                 'created_at' => now(),
             ],
            /* [],

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WorkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/works', [WorkController::class, 'index'])->name('works');   
+Route::get('/works/edit/{id}', [WorkController::class, 'edit'])->name('works.edit');
+Route::delete('/works/delete/{id}', [WorkController::class, 'delete'])->name('works.delete');
+    
 require __DIR__.'/auth.php';

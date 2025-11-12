@@ -1,7 +1,4 @@
 @extends('layouts.app') 
-
-{{-- Feltételezi, hogy a layouts/app.blade.php fájl már létezik --}}
-
 @section('content')
 <div class="container">
     <h1>Új Munka Létrehozása</h1>
