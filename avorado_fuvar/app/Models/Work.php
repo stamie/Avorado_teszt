@@ -27,7 +27,7 @@ class Work extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function status()
+    public function status_()
     {
         return $this->belongsTo('App\Models\Status', 'status');
     }

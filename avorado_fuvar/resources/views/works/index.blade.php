@@ -10,7 +10,8 @@
                 <td>Indulásipont</td>
                 <td>Végpont</td>
                 <td>Szállító</td>
-                <td>Művelet</td>
+                <td>Státusz</td>
+                <td {{ (auth()->check() && auth()->user()->hasRole('admin')?'colspan="2"':'' )}}>Művelet</td>
             </tr>
         </th>
         <tbody>
@@ -20,7 +21,8 @@
             <td>{{ $work->recipient_name }}</td>
             <td>{{ $work->start_place }}</td>
             <td>{{ $work->end_place }}</td>
-            <td>{{ $work->carrier }}</td>
+            <td>{{ $work->user->name }}</td>
+            <td>{{ $work->status_->name }}</td>
             <td><a href="{{ route('works.edit', $work) }}">Szerkesztés</a></td>
             @if (auth()->check() && auth()->user()->hasRole('admin'))
             
