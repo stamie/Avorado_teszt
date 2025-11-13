@@ -110,36 +110,39 @@ class WorkController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Work $work)
+    public function update(Request $request)
     {
         $User = Auth::user();
         if ($User->hasRole('admin')) {
-        
+            $work = Work::find((int) $request->input('id'));
             $validatedData = $request->validate([
                 'start_place'     => 'required|string',
                 'end_place'       => 'required|string',
                 'recipient_name'  => 'required|string|max:250',
                 'recipient_phone' => 'required|string|max:20',
                 'carrier'         => 'required|integer',
+                'status'          => 'required|integer',
             ]);
-            $status = [];
-            if ($validatedData['carrier'] > 0) {
+            $status = [
+                'carrier' => intval($validatedData['carrier']),
+                'status'  => intval($validatedData['status']),
+            ];
+            if (intval($validatedData['carrier']) == 0 || intval($validatedData['status']) == 0) {
                 $status = [
-                    'carrier' => $validatedData['carrier'],
-                    'status'  => 1,
+                    'carrier' => NULL,
+                    'status'  => NULL,
                 ];
             }
-            $work = Work::create([
+            $wasUpdated = 
+            $work->update([
                 'start_place'     => $validatedData['start_place'],
                 'end_place'       => $validatedData['end_place'],
                 'recipient_name'  => $validatedData['recipient_name'],
                 'recipient_phone' => $validatedData['recipient_phone'], 
-                'created_at'      => now(),
-                'updated_at'      => now(),                 
+                'updated_at'      => now(),      
+                'created_at'      => $work->created_at,           
             ] + $status);
             return redirect()->route('works');
-            
-
         } else {
             return redirect()->route('dashboard');
         }

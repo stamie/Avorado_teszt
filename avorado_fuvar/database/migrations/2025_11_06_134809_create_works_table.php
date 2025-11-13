@@ -17,8 +17,8 @@ return new class extends Migration
             $table->longText('end_place');
             $table->string('recipient_name', 250);
             $table->string('recipient_phone', 20);
-            $table->foreignId('status')->constrained('statuses');            
-            $table->foreignId('carrier')->constrained('users');
+            $table->foreignId('status')->nullable(true)->constrained('statuses');            
+            $table->foreignId('carrier')->nullable(true)->constrained('users');
             $table->timestamps();
            
         });

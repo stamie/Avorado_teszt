@@ -14,7 +14,7 @@
                 </ul>
             </div>
         @endif
-        
+        <input type="hidden" name="id" id="id" value="{{ $work->id }}" />
         <div class="mb-3 w-100">
             <label for="start_place" class="form-label">Kiindulásipont:</label>
             <textarea name="start_place" 
@@ -63,13 +63,13 @@
             @enderror
         </div>
         <div class="mb-3 w-50">
+            {{ $carrierVarieble = old('carrier')?old('carrier'):(isset($work->carrier)?$work->carrier:0)}}
+            {{ $carrierVarieble }}
             <label for="carrier" class="form-label">Hozzárendelt Fuvaros:</label>
             <select name="carrier" 
                    id="carrier" 
                    class="form-control @error('carrier') is-invalid @enderror" 
                    required>
-            {{ $carrierVarieble = old('carrier')?old('carrier'):(isset($work->carrier)?$work->carrier:0)}}
-                    
             @if (is_array($carriers) || is_object($carriers))
                 @if ($carrierVarieble == 0)
                     <option value="0" selected>---</option>
@@ -90,12 +90,13 @@
             @enderror
         </div>
         <div class="mb-3 w-50">
-            <label for="status" class="form-label">Hozzárendelt Fuvaros:</label>
+            {{ $statusVarieble = old('status')?old('status'):(isset($work->status)?$work->status:0)}}
+            {{ $statusVarieble }}
+            <label for="status" class="form-label">Státisza:</label>
             <select name="status" 
                    id="status" 
                    class="form-control @error('status') is-invalid @enderror" 
                    required>
-            {{ $statusVarieble = old('status')?old('status'):(isset($work->status)?$work->status:0)}}
                     
             @if (is_array($statuses) || is_object($statuses))
                 @if ($statusVarieble == 0)
@@ -105,7 +106,7 @@
                 @endif
                     @foreach ($statuses as $status)
                         @if ($statusVarieble == $status->id))
-                            <option value="{{ $status->id }}" selected>{{ $status->name }}</option>
+                            <option value="{{ $status->id }}" @selected($statusVarieble)>{{ $status->name }}</option>
                         @else
                             <option value="{{ $status->id }}">{{ $status->name }}</option>
                         @endif
