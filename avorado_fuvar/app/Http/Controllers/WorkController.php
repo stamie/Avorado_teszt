@@ -33,6 +33,19 @@ class WorkController extends Controller
     }
 
     /**
+     * Show the form for deleting an old resource.
+     */
+    public function delete(Work $work)
+    {
+        $User = Auth::user();
+        if ($User->hasRole('admin')) {
+            $isDeleted = $work->delete();
+            return redirect()->route('works');
+        } 
+        return redirect()->route('dashboard');
+        
+    }
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
