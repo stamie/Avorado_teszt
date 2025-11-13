@@ -63,8 +63,7 @@
             @enderror
         </div>
         <div class="mb-3 w-50">
-            {{ $carrierVarieble = old('carrier')?old('carrier'):(isset($work->carrier)?$work->carrier:0)}}
-            {{ $carrierVarieble }}
+            <?php $carrierVarieble = old('carrier')?old('carrier'):(isset($work->carrier)?$work->carrier:0); ?>
             <label for="carrier" class="form-label">Hozzárendelt Fuvaros:</label>
             <select name="carrier" 
                    id="carrier" 
@@ -76,13 +75,9 @@
                 @else
                     <option value="0">---</option>
                 @endif
-                    @foreach ($carriers as $carrier)
-                        @if ($carrierVarieble == $carrier->id))
-                            <option value="{{ $carrier->id }}" selected>{{ $carrier->name }}</option>
-                        @else
-                            <option value="{{ $carrier->id }}">{{ $carrier->name }}</option>
-                        @endif
-                    @endforeach    
+                @foreach ($carriers as $carrier)
+                    <option value="{{ $carrier->id }}" @selected($carrierVarieble == $carrier->id)>{{ $carrier->name }}</option>
+                @endforeach    
             @endif 
             </select>
             @error('carrier')
@@ -90,27 +85,23 @@
             @enderror
         </div>
         <div class="mb-3 w-50">
-            {{ $statusVarieble = old('status')?old('status'):(isset($work->status)?$work->status:0)}}
-            {{ $statusVarieble }}
+            <?php $statusVarieble = old('status')?old('status'):(isset($work->status)?$work->status:0); ?>
+           
             <label for="status" class="form-label">Státisza:</label>
             <select name="status" 
                    id="status" 
                    class="form-control @error('status') is-invalid @enderror" 
                    required>
-                    
             @if (is_array($statuses) || is_object($statuses))
+             
                 @if ($statusVarieble == 0)
                     <option value="0" selected>---</option>
                 @else
                     <option value="0">---</option>
                 @endif
-                    @foreach ($statuses as $status)
-                        @if ($statusVarieble == $status->id))
-                            <option value="{{ $status->id }}" @selected($statusVarieble)>{{ $status->name }}</option>
-                        @else
-                            <option value="{{ $status->id }}">{{ $status->name }}</option>
-                        @endif
-                    @endforeach    
+                @foreach ($statuses as $status)
+                        <option value="{{ $status->id }}" @selected($statusVarieble==$status->id)>{{ $status->name }}</option>
+                @endforeach    
             @endif 
             </select>
             @error('status')
