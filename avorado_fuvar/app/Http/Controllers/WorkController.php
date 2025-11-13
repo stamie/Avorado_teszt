@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\Work;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,9 +41,9 @@ class WorkController extends Controller
         if ($User->hasRole('admin')) {
             $carriers = User::where('role', 'carrier')->get();
             return view('works.create', compact('carriers'));            
-        } else {
-            return redirect()->route('dashboard');
-        }
+        } 
+        return redirect()->route('dashboard');
+        
     }
 
     /**
@@ -96,7 +97,14 @@ class WorkController extends Controller
      */
     public function edit(Work $work)
     {
-        //
+        $User = Auth::user();
+        if ($User->hasRole('admin') && isset($work)) {
+            $carriers = User::where('role', 'carrier')->get();
+            $statuses = Status::all();
+            return view('works.edit', compact('work', 'carriers', 'statuses'));            
+        } 
+        return redirect()->route('dashboard');
+        
     }
 
     /**
@@ -104,7 +112,37 @@ class WorkController extends Controller
      */
     public function update(Request $request, Work $work)
     {
-        //
+        $User = Auth::user();
+        if ($User->hasRole('admin')) {
+        
+            $validatedData = $request->validate([
+                'start_place'     => 'required|string',
+                'end_place'       => 'required|string',
+                'recipient_name'  => 'required|string|max:250',
+                'recipient_phone' => 'required|string|max:20',
+                'carrier'         => 'required|integer',
+            ]);
+            $status = [];
+            if ($validatedData['carrier'] > 0) {
+                $status = [
+                    'carrier' => $validatedData['carrier'],
+                    'status'  => 1,
+                ];
+            }
+            $work = Work::create([
+                'start_place'     => $validatedData['start_place'],
+                'end_place'       => $validatedData['end_place'],
+                'recipient_name'  => $validatedData['recipient_name'],
+                'recipient_phone' => $validatedData['recipient_phone'], 
+                'created_at'      => now(),
+                'updated_at'      => now(),                 
+            ] + $status);
+            return redirect()->route('works');
+            
+
+        } else {
+            return redirect()->route('dashboard');
+        }
     }
 
     /**
