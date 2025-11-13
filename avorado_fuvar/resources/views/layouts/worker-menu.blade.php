@@ -16,15 +16,9 @@
         <x-dropdown-link :href="route('works')">
             {{ __('Munkák listázása') }}
         </x-dropdown-link>
-
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <x-dropdown-link :href="route('logout')"
-                    onclick="event.preventDefault();
-                                this.closest('form').submit();">
-                {{ __('Kijelentkezés') }}
-            </x-dropdown-link>
-        </form>
+        <x-dropdown-link :href="route('works.create')">
+            {{ __('Munka létrehozása') }}
+        </x-dropdown-link>
     </x-slot>
 </x-dropdown>
 <!-- Admin user End   -->

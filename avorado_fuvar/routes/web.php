@@ -32,5 +32,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/works', [WorkController::class, 'index'])->name('works');   
 Route::get('/works/edit/{id}', [WorkController::class, 'edit'])->name('works.edit');
 Route::delete('/works/delete/{id}', [WorkController::class, 'delete'])->name('works.delete');
+Route::get('/works/create', [WorkController::class, 'create'])->name('works.create');
+Route::post('/works/store', [WorkController::class, 'store'])->name('works.store');
     
 require __DIR__.'/auth.php';

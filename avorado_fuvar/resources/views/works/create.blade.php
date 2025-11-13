@@ -1,15 +1,9 @@
-@extends('layouts.app') 
-@section('content')
-<div class="container">
+<x-app-layout>
+@auth
     <h1>Új Munka Létrehozása</h1>
-
-
-    {{-- ŰRLAP KEZDETE --}}
-    {{-- A kérés a PostController store() metódusának megy POST kérésként --}}
-    <form action="{{ route('works.store') }}" method="POST">
-        @csrf {{-- Védelmi token Laravelben KÖTELEZŐ! --}}
-
-        {{-- Hibaüzenetek megjelenítése --}}
+<div class="content">
+    <form action="{{ route('works.store') }}" method="POST" style="display:flex">
+        @csrf
         @if ($errors->any())
             <div class="alert alert-danger">
                 <strong>Hiba!</strong> Kérjük, javítsd a beviteli hibákat:
@@ -21,7 +15,7 @@
             </div>
         @endif
         
-        <div class="mb-3">
+        <div class="mb-3 w-100">
             <label for="start_place" class="form-label">Kiindulásipont:</label>
             <textarea name="start_place" 
                       id="start_place" 
@@ -33,7 +27,7 @@
             @enderror
         </div>
         
-        <div class="mb-3">
+        <div class="mb-3 w-100">
             <label for="end_place" class="form-label">Érkezésipont:</label>
             <textarea name="end_place" 
                       id="end_place" 
@@ -44,7 +38,7 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-        <div class="mb-3">
+        <div class="mb-3  w-50">
             <label for="recipient_name" class="form-label">Címzett neve:</label>
             <input type="text" 
                    name="recipient_name" 
@@ -56,7 +50,7 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-        <div class="mb-3">
+        <div class="mb-3 w-50">
             <label for="recipient_phone" class="form-label">Címzett telefonszáma:</label>
             <input type="text" 
                    name="recipient_phone" 
@@ -68,10 +62,28 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-        
+        <div class="mb-3 w-50">
+            <label for="carrier" class="form-label">Hozzárendelt Fuvaros:</label>
+            <select name="carrier" 
+                   id="carrier" 
+                   class="form-control @error('title') is-invalid @enderror" 
+                   required>
+            @if (is_array($carriers) || is_object($carriers))       
+                <option value="0">---</option>
+                @foreach ($carriers as $carrier)
+                    <option value="{{ $carrier->id }}">{{ $carrier->name }}</option>
+                @endforeach    
+            @endif
+            </select>
+            @error('carrier')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
         <button type="submit" class="btn btn-success">Munka Mentése</button>
     </form>
-    {{-- ŰRLAP VÉGE --}}
-
 </div>
-@endsection
+@else
+    <a href="{{ route('login') }}">Bejelentkezés</a>
+    <a href="{{ route('register') }}">Regisztráció</a>
+@endauth
+</x-app-layout>
