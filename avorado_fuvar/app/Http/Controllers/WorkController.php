@@ -102,7 +102,25 @@ class WorkController extends Controller
             $carriers = User::where('role', 'carrier')->get();
             $statuses = Status::all();
             return view('works.edit', compact('work', 'carriers', 'statuses'));            
-        } 
+        } elseif ($User->hasRole('carrier') && isset($work)) {
+            return redirect()->route('works.editcarrier', $work);
+        }
+        return redirect()->route('dashboard');
+        
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function editcarrier(Work $work)
+    {
+        $User = Auth::user();
+        if ($User->hasRole('carrier') && isset($work)) {
+            $statuses = Status::all();
+            return view('works.editcarrier', compact('work', 'statuses'));            
+        } elseif ($User->hasRole('admin') && isset($work)) {
+            return redirect()->route('works.edit', $work);
+        }
         return redirect()->route('dashboard');
         
     }
@@ -142,6 +160,28 @@ class WorkController extends Controller
                 'updated_at'      => now(),      
                 'created_at'      => $work->created_at,           
             ] + $status);
+            return redirect()->route('works');
+        } else {
+            return redirect()->route('dashboard');
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updatecarrier(Request $request)
+    {
+        $User = Auth::user();
+        if ($User->hasRole('carrier')) { 
+            $work = Work::find((int) $request->input('id'));
+            $validatedData = $request->validate([
+                'status'          => 'required|integer',
+            ]);
+            $wasUpdated = 
+            $work->update([
+                'status' => $validatedData['status'], 
+                'updated_at'      => now(),      
+            ]);
             return redirect()->route('works');
         } else {
             return redirect()->route('dashboard');
