@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('Halloka13!'),
                 'role' => 'carrier',
                 'created_at' => now(),
-                'update_at' => now(),
+                'updated_at' => now(),
 
             ],    
             [
@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('Halloka13!'),
                 'role' => 'carrier',
                 'created_at' => now(),
-                'update_at' => now(),
+                'updated_at' => now(),
 
             ],    
             [
@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('Halloka13!'),
                 'role' => 'carrier',
                 'created_at' => now(),
-                'update_at' => now(),
+                'updated_at' => now(),
 
             ],    
             [
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('Halloka13!'),
                 'role' => 'carrier',
                 'created_at' => now(),
-                'update_at' => now(),
+                'updated_at' => now(),
 
             ],    
             [
@@ -59,7 +59,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('Halloka13!'),
                 'role' => 'admin',
                 'created_at' => now(),
-                'update_at' => now(),
+                'updated_at' => now(),
 
             ],    
         ]);

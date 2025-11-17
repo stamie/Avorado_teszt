@@ -13,7 +13,7 @@
     </x-slot>
 
     <x-slot name="content">
-        <x-dropdown-link :href="route('works')">
+        <x-dropdown-link :href="route('works.index')">
             {{ __('Munkák listázása') }}
         </x-dropdown-link>
         <x-dropdown-link :href="route('works.create')">

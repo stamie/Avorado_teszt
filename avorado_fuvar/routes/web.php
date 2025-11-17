@@ -27,15 +27,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-Route::get('/works', [WorkController::class, 'index'])->name('works');   
-Route::get('/works/edit/{work}', [WorkController::class, 'edit'])->name('works.edit');
-Route::post('/works/update', [WorkController::class, 'update'])->name('works.update');
-Route::get('/works/editcarrier/{work}', [WorkController::class, 'editcarrier'])->name('works.editcarrier');
-Route::post('/works/updatecarrier', [WorkController::class, 'updatecarrier'])->name('works.updatecarrier');
-Route::get('/works/delete/{work}', [WorkController::class, 'delete'])->name('works.delete');
-Route::get('/works/create', [WorkController::class, 'create'])->name('works.create');
+
+Route::get('/works', [WorkController::class, 'index'])->name('works.index');   //Munkák listája
+Route::get('/works/edit/{work}', [WorkController::class, 'edit'])->name('works.edit'); //Adin editje
+Route::patch('/works/update', [WorkController::class, 'update'])->name('works.update'); //Adin updatje
+Route::get('/works/editcarrier/{work}', [WorkController::class, 'editcarrier'])->name('works.editcarrier'); //Carrier editje
+Route::patch('/works/updatecarrier', [WorkController::class, 'updatecarrier'])->name('works.updatecarrier'); //Carrier updatje
+Route::get('/works/delete/{work}', [WorkController::class, 'delete'])->name('works.delete'); //Munka törlése adminnak
+Route::get('/works/create', [WorkController::class, 'create'])->name('works.create'); //Munka törlése adminnak
 Route::post('/works/store', [WorkController::class, 'store'])->name('works.store');
-    
+});    
 require __DIR__.'/auth.php';

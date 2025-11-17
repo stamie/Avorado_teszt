@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class User extends Authenticatable
 {
+    use HasFactory;
     /**
      * @var array
      */

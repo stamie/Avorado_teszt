@@ -37,4 +37,18 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    public function admin(): Factory
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'admin', // Felülírja az alapértelmezett 'user' szerepkört
+        ]);
+    }
+    
+    public function carrier(): Factory
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'carrier', // Felülírja az alapértelmezett 'user' szerepkört
+        ]);
+    }
 }

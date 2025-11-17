@@ -3,7 +3,8 @@
     <h1>Munka módosítása</h1>
 <div class="content">
     <form action="{{ route('works.update') }}" method="POST" style="display:flex">
-        @csrf
+        @csrf 
+        @method('PATCH')
         @if ($errors->any())
             <div class="alert alert-danger">
                 <strong>Hiba!</strong> Kérjük, javítsd a beviteli hibákat:
