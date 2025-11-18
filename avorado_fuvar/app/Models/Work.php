@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @property integer $id
  * @property integer $status
@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Work extends Model
 {
+    use HasFactory;
+
     /**
      * @var array
      */

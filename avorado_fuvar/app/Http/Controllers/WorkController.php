@@ -40,7 +40,7 @@ class WorkController extends Controller
         $User = Auth::user();
         if ($User->hasRole('admin')) {
             $isDeleted = $work->delete();
-            return redirect()->route('works');
+            return redirect()->route('works.index');
         } 
         return redirect()->route('dashboard');
         
@@ -89,7 +89,7 @@ class WorkController extends Controller
                 'created_at'      => now(),
                 'updated_at'      => now(),                 
             ] + $status);
-            return redirect()->route('works');
+            return redirect()->route('works.index');
             
 
         } else {
@@ -173,10 +173,10 @@ class WorkController extends Controller
                 'updated_at'      => now(),      
                 'created_at'      => $work->created_at,           
             ] + $status);
-            return redirect()->route('works');
-        } else {
-            return redirect()->route('dashboard');
+            return redirect()->route('works.index');
         }
+        return redirect()->route('dashboard');
+        
     }
 
     /**
@@ -195,10 +195,10 @@ class WorkController extends Controller
                 'status' => $validatedData['status'], 
                 'updated_at'      => now(),      
             ]);
-            return redirect()->route('works');
-        } else {
-            return redirect()->route('dashboard');
-        }
+            return redirect()->route('works.index');
+        } 
+        return redirect()->route('dashboard');
+        
     }
 
     /**
