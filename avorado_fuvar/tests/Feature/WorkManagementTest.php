@@ -145,4 +145,53 @@ class WorkManagementTest extends TestCase
         $statusesTable->down(); 
     }
     
+    /** @test */
+    public function update_datas_carrier()
+    {
+        $statusesTable = new StatusesSeeder();
+        $statusesTable->run();
+        $userAdmin = User::factory()->admin()->create();
+        $userCarrier = User::factory()->carrier()->create();
+        $now = date('Y-m-d H:i:s');
+
+        $workData = [
+            'start_place'     => '1024 Bp. Pál utca 7. Egyedi',
+            'end_place'       => '1059 Bp. Nagy Józsi utca 9.',
+            'recipient_name'  => 'Ferenc dr.',
+            'recipient_phone' => '+36709541113', 
+            'created_at'      => $now,
+            'updated_at'      => $now,
+            'carrier' => $userCarrier->id,
+            'status'  => 1,
+        ];
+        $work = Work::factory()->create($workData); 
+
+       // Az új adatok
+        $updatedData = [
+            'id' => $work->id,
+            'status'  => 2,
+            
+        ];
+
+        // 2. Act
+        $response = $this->actingAs($userCarrier)->patch(route('works.updatecarrier'), $updatedData);
+        $response->assertStatus(302);
+        $response->assertSessionDoesntHaveErrors();
+        if ($response->exception) {
+        // Kiírja a PHP hibaüzenetet a konzolra
+            throw $response->exception; 
+        }   
+        $response->assertRedirect(route('works.index')); 
+     
+        // Ellenőrizzük, hogy az adatbázisban a változások megjelentek
+        $this->assertDatabaseHas('works', [
+            'id' => $work->id,
+            'carrier' => $userCarrier->id,
+            'status'  => 2,
+            
+        ]);
+        
+        // Ellenőrizzük, hogy az eredeti cím már nem létezik az adatbázisban
+        $statusesTable->down(); 
+    }
 }
